@@ -9,7 +9,7 @@
 
 </head>
 <body>
-  <h3 class="text-center my-5">Listado de Averias</h3>
+  <h3 class="text-center my-5">Listado de Averias Pendientes</h3>
 <div class="container">
   <a href="<?=base_url('/averias/registrar')?>">Registrar</a>
   <table class="table table-bordered">
@@ -19,6 +19,7 @@
           <th>Problema</th>
           <th>Fecha y Hora</th>
           <th>Status</th>
+          <th>Opción</th>
         </tr>
     </thead>
     <tbody id="averias-listar">
@@ -28,10 +29,49 @@
           <td><?=$av['problema']?></td>
           <td><?=$av['fechahora']?></td>
           <td><?=$av['status']?></td>
+          <td>
+            <button class="btn btn-primary">Solucionado</button>
+          </td>
         </tr>
         <?php endforeach ?>
     </tbody>
   </table>
 </div>
+<script>
+let conn = null;
+
+function connect(){
+    conn = new WebSocket('ws://localhost:8080');
+    
+    conn.onopen = function(e){
+        console.log("Conectado al servidor de notificaciones");
+    }
+    
+    conn.onmessage = function(e){
+        const data = JSON.parse(e.data);
+        
+        if(data.type === 'nueva_averia'){
+
+          const tbody = document.getElementById('averias-listar');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${data.averia.cliente}</td>
+                <td>${data.averia.problema}</td>
+                <td>${data.averia.fechahora}</td>
+                <td>Pendiente</td>
+                <td><button class="btn btn-primary">Solucionado</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+    
+    conn.onclose = function(e){
+        console.log("Desconectado, reconectando...");
+        setTimeout(connect, 3000);
+    }
+}
+
+connect();
+</script>
 </body>
 </html>

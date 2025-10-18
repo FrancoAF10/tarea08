@@ -32,19 +32,10 @@
                 </div>
               </div>
               <div class="row mt-3">
-                <div class="col-md-6">
+                <div class="col-md-6  mx-auto">
                   <div class="form-floating">
                     <input type="date" name="fechahora" id="fechahora" class="form-control">
                     <label for="fechahora">Fecha y Hora</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-floating">
-                    <select name="status" id="status" class="form-select">
-                      <option value="Pendiente">Pendiente</option>
-                      <option value="Solucionado">Solucionado</option>
-                    </select>
-                    <label for="status">Status</label>
                   </div>
                 </div>
               </div>

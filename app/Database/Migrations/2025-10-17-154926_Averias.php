@@ -32,7 +32,8 @@ class Averias extends Migration
             "status"=>[
                 "type"=>"ENUM",
                 "constraint"=>['Pendiente','Solucionado'],
-                "null"=>false
+                "null"=>false,
+                "default"=>"Pendiente"
             ],
         ]);
          //Definir la clave primaria
