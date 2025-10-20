@@ -43,6 +43,11 @@ php spark migrate
 php spark db:seed Averias
 
 ```
-5. Vista del Proyecto
+5. Socket
+- Para ejecutar nuestro socket y que realice sus tareas en tiempo real, utiliza el siguiente comando:
+```
+php server.php
+```
+6. Vista del Proyecto
 - Al haber realizado todos los pasos anteriores, procedemos a darle al boton de **Iniciar Todo** de laragon.
 - Por ultimo, ingresamos la ruta de nuestro proyecto 'http://tarea08.test/averias' en nuestro navegador.
