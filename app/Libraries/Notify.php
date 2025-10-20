@@ -38,23 +38,12 @@ class Notify implements MessageComponentInterface
         
         $data = json_decode($msg, true);
         
-       
-        if (isset($data['type']) && $data['type'] === 'nueva_averia') {
-            $this->broadcast([
-                'type' => 'nueva_averia',
-                'averia' => $data['data']
-            ]);
-        } else {
-            // Mensajes normales (si los usas)
-            $response = [
-                'type' => 'message',
-                'user_id' => $from->resourceId,
-                'message' => $data['message'] ?? $msg,
-                'timestamp' => date('H:i:s')
-            ];
-            $this->broadcast($response);
+        // Propagar nueva avería o actualización de estado
+        if (isset($data['type']) && in_array($data['type'], ['nueva_averia', 'averia_actualizada'])) {
+            $this->broadcast($data);
         }
     }
+
   public function onClose(ConnectionInterface $conn)
   {
     // La conexión se cerró, remover de la lista
